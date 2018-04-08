@@ -1,9 +1,12 @@
 
 # OpenWebNet (BTicino/Legrand) Binding
 
-This new binding integrates BTicino / Legrand MyHOME(R) BUS & ZigBee Radio devices using the **[OpenWebNet](https://en.wikipedia.org/wiki/OpenWebNet) protocol**.
+This new binding integrates **BTicino / Legrand MyHOME(R) BUS & ZigBee Radio** devices using the **[OpenWebNet](https://en.wikipedia.org/wiki/OpenWebNet) protocol**.
+
 It is the first known binding for openHAB 2 that **supports *both* wired BUS/SCS** as well as **wireless ZigBee setups**, all in the same biding. The two networks can be configured simultaneously.
+
 It's also the first OpenWebNet binding with initial support for discovery of BUS/SCS devices.
+
 Commands from openHAB and feedback (events) from BUS/SCS and ZigBee networks are supported.
 
 ## Prerequisites
