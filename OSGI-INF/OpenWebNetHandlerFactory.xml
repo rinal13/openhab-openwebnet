@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2017-2018 by the respective copyright holders.
+
+-->
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" immediate="true" name="org.openhab.binding.openwebnet.internal.OpenWebNetHandlerFactory">
+
+	<implementation class="org.openhab.binding.openwebnet.internal.OpenWebNetHandlerFactory"/>
+
+	<service>
+		<provide interface="org.eclipse.smarthome.core.thing.binding.ThingHandlerFactory"/>
+	</service>
+
+</scr:component>
