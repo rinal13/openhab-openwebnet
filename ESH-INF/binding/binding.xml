@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<binding:binding id="openwebnet"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:binding="http://eclipse.org/smarthome/schemas/binding/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/binding/v1.0.0 http://eclipse.org/smarthome/schemas/binding-1.0.0.xsd">
+
+	<name>OpenWebNet Binding</name>
+	<description>The OpenWebNet Binding integrates the BTicino/Legrand 'MyHOME' connected home system using the OpenWebNet protocol. It supports BUS (SCS) and ZigBee USB gateways to control BTicino/Legrand switches, dimmers, shutters, etc. More info: http://www.bticino.com/products-catalogue/management-of-connected-lights-and-shutters/</description>
+
+	<author>Massimo Valla</author>
+
+</binding:binding>
