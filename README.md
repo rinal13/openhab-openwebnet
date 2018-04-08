@@ -2,8 +2,11 @@
 # OpenWebNet (BTicino/Legrand) Binding
 
 This new binding integrates **BTicino / Legrand MyHOME(R) BUS & ZigBee Radio** devices using the **[OpenWebNet](https://en.wikipedia.org/wiki/OpenWebNet) protocol**.
+
 It is the first known binding for openHAB 2 that **supports *both* wired BUS/SCS** as well as **wireless ZigBee setups**, all in the same biding. The two networks can be configured simultaneously.
+
 It's also the first OpenWebNet binding with initial support for discovery of BUS/SCS devices.
+
 Commands from openHAB and feedback (events) from BUS/SCS and ZigBee networks are supported.
 
 ## Prerequisites
@@ -11,11 +14,11 @@ Commands from openHAB and feedback (events) from BUS/SCS and ZigBee networks are
 In order for this biding to work, an OpenWebNet gateway is needed in your installation to talk to devices.
 Currently these gateways are supported:
 - **IP gateways**, such as the [MH200N](http://www.homesystems-legrandgroup.com/BtHomeSystems/productDetail.action?lang=EN&productId=016), [F453](http://www.homesystems-legrandgroup.com/BtHomeSystems/productDetail.action?productId=027), [F454](http://www.homesystems-legrandgroup.com/BtHomeSystems/productDetail.action?productId=006), etc.
-  - As in the openHAB 1.x BTicino binding, the BUS/SCS gateway must be configured to accept connections from the openHAB computer IP
 - **ZigBee USB gateways**, using USB/serial ports such as the [BTicino 3578](http://www.catalogo.bticino.it/BTI-3578-EN) and [Legrand 088328](https://www.legrand.fr/pro/catalogue/35115-interface-openradio/interface-open-webnet-et-radio-pour-pilotage-dune-installation-myhome-play)
 
-***IMPORTANT NOTE***
-As for the Serial binding, if you run OH2 on Linux to access the USB/serial port you might require that you add the `openhab` user to the `dialout` group to grant permission to read/write to the serial port:
+***IMPORTANT NOTES***
+- IP gateways: as in the openHAB 1.x BTicino binding, the BUS/SCS gateway must be configured to accept connections from the openHAB computer IP
+- ZigBee USB gateways: as for the Serial binding, if you run OH2 on Linux to access the USB/serial port you might require that you add the `openhab` user to the `dialout` group to grant permission to read/write to the serial port:
 ```
 sudo usermod -a -G dialout openhab
 ```
@@ -41,6 +44,7 @@ Lighting | `1`| `dimmer`, `on_off_switch`, `on_off_switch2u`|Yes|ZigBee dimmers,
 Automation | `2`| *work in progress* |- |-|-
 
 ***IMPORTANT NOTE***
+
 BTicino/Legrand ZigBee Radio devices need to be attached to same network of the USB dongle before it is possible for the binding to discover them. Please refer to [this guide](http://www.bticino.com/products-catalogue/management-of-connected-lights-and-shutters/#installation) by BTicino to setup a ZigBee network which includes the USB dongle.
 
 ## Discovery
@@ -50,7 +54,7 @@ Discovery is supported using PaperUI by activating the discovery ("+") button fo
 ### BUS/SCS Discovery
 
 - Gateway discovery using UPnP is *under development* and will be available only for those IP gateways supporting UPnP.
-- For the moment the OpenWebNet IP gateway should be added manually (see BUS/SCS Gateway configuration below).
+- For the moment the OpenWebNet IP gateway should be added **manually** (see BUS/SCS Gateway configuration below).
 - Once the gateway is added manually as a Thing, a second discovery request from Inbox will discover its devices.
 - BUS/SCS Dimmers must be ON and dimmed (20-100%) at time of discovery, otherwise they will be discovered as simple On/Off switches.
 
@@ -79,6 +83,7 @@ Bridge openwebnet:bus_gateway:myBridge1 [ host="192.168.1.35", passwd="5522" ]
 ```
 
 ***HELP NEEDED!!!***
+
 Start a gateway discovery, and then send your (DEBUG-level) log file to the openHAB Community OpenWebNet thread to see if UPnP discovery is supported by your BTicino IP gateway.
 
 
@@ -99,8 +104,11 @@ For all OpenWebNet devices it must have configured:
 #### Example
 
 ##### BUS/SCS:
-`bus_dimmer        myDimmer   [ where="24" ]`
-`bus_on_off_switch mySwitch   [ where="64#4#01" ]`
+
+```
+bus_dimmer        myDimmer   [ where="24" ]
+bus_on_off_switch mySwitch   [ where="64#4#01" ]
+```
 
 ##### ZigBee:
 `(TODO)`
@@ -109,11 +117,11 @@ For all OpenWebNet devices it must have configured:
 
 Devices support some of the following channels:
 
-Channel Type ID   | Item Type       | Description
+Channel Type IDs   | Item Type       | Description
 ------------------|-----------------|----------------------------------------------------------
-switch            | Switch          | This channel supports switching the device on and off
-brightness        | Dimmer          | This channel supports adjusting the brightness value
-shutter *(not yet supported)*| Rollershutter   | This channel supports activation of roller shutters (Up, Down, Stop)                                                                                      
+`switch`, `switch_01`, `switch_02`  | `Switch`          | This channeles support switching the device on and off
+`brightness`        | `Dimmer`          | This channel supports adjusting the brightness value
+`shutter` *(not yet supported)*| `Rollershutter`   | This channel supports activation of roller shutters (Up, Down, Stop)                                                                                      
 
 ## Full Example
 
@@ -121,7 +129,7 @@ shutter *(not yet supported)*| Rollershutter   | This channel supports activatio
 
 ```
 Bridge openwebnet:bus_gateway:myBridge1 [ host="192.168.1.35", passwd="5522" ] {
-      bus_dimmer        mySimmer   [ where="24" ]
+      bus_dimmer        myDimmer   [ where="24" ]
       bus_on_off_switch mySwitch   [ where="64#4#01" ]
 }
 ``` 
@@ -152,8 +160,8 @@ Dimmer BUS_Dimmer  { channel="openwebnet:bus_dimmer:myBridge1:myDimmer:brightnes
 - This binding is not associated by any means with BTicino or Legrand companies
 - The OpenWebNet protocol is maintained and Copyright by BTicino/Legrand. The documentation of the protocol if freely accessible for developers on the [MyOpen Community website - https://www.myopen-legrandgroup.com/developers](https://www.myopen-legrandgroup.com/developers/)
 - OpenWebNet and MyHOME are registered trademarks by BTicino/Legrand
-- This binding uses `openwebnet-lib 0.9.x` an OpenWebNet Java lib partly based on [openwebnet/rx-openwebnet](https://github.com/openwebnet/rx-openwebnet) client library by niqdev, to support:
+- This binding uses `openwebnet-lib 0.9.x` an OpenWebNet Java lib partly based on [openwebnet/rx-openwebnet](https://github.com/openwebnet/rx-openwebnet) client library by niqdev. It was extended to support:
   - gateways and OWN frames for ZigBee
   - frame parsing
   - monitoring events from BUS
- The lib also uses few classes from the openHAB 1.x BTicino binding for socket handling and priority queues.
+ The `openwebnet-lib` also uses few classes from the openHAB 1.x BTicino binding for socket handling and priority queues
